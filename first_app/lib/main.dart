@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
@@ -12,7 +10,23 @@ class MyApp extends StatelessWidget {
           title: Text('New App'),
           backgroundColor: Color(0xFF45B39D),
         ),
-        body: Text('Body of the App'),
+        body: Column(
+          children: [
+            Text('many widgets displayed'),
+            RaisedButton(
+              child: Text('Button 1'),
+              onPressed: null,
+            ),
+            RaisedButton(
+              child: Text('Button 2'),
+              onPressed: null,
+            ),
+            RaisedButton(
+              child: Text('Button 3'),
+              onPressed: null,
+            ),
+          ],
+        ),
       ),
     );
   }
