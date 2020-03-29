@@ -2,11 +2,26 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return MyAppState();
+  }
+}
+
+class MyAppState extends State<MyApp> {
+  var questionIndex = 0;
+
+  var questions = ['First Question', 'Second Question', 'Third Question'];
+
   void buttonPressed() {
-    print('You have pressed the answer button 1');
+    setState(() {
+      questionIndex = (questionIndex + 1)%(questions.length);
+    });
+    print('Button pressed');
   }
 
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
@@ -16,20 +31,20 @@ class MyApp extends StatelessWidget {
         ),
         body: Column(
           children: [
-            Text('many widgets displayed'),
+            Text(
+              questions[questionIndex],
+            ),
             RaisedButton(
               child: Text('Button 1'),
               onPressed: buttonPressed,
             ),
             RaisedButton(
               child: Text('Button 2'),
-              onPressed: () => print('Button 2 pressed'),
+              onPressed: buttonPressed,
             ),
             RaisedButton(
               child: Text('Button 3'),
-              onPressed: () {
-                print('Button 3 pressed');
-              },
+              onPressed: buttonPressed,
             ),
             RaisedButton(
               child: Text('Button 4'),
