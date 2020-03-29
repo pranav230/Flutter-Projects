@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  void buttonPressed() {
+    print('You have pressed the answer button 1');
+  }
+
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
@@ -15,14 +19,20 @@ class MyApp extends StatelessWidget {
             Text('many widgets displayed'),
             RaisedButton(
               child: Text('Button 1'),
-              onPressed: null,
+              onPressed: buttonPressed,
             ),
             RaisedButton(
               child: Text('Button 2'),
-              onPressed: null,
+              onPressed: () => print('Button 2 pressed'),
             ),
             RaisedButton(
               child: Text('Button 3'),
+              onPressed: () {
+                print('Button 3 pressed');
+              },
+            ),
+            RaisedButton(
+              child: Text('Button 4'),
               onPressed: null,
             ),
           ],
