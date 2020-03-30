@@ -13,6 +13,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var _questionIndex = 0;
+  int _totalScore = 0;
 
   List<Object> colorTheme = [
     #f39c12,
@@ -24,19 +25,36 @@ class _MyAppState extends State<MyApp> {
   static const _questions = [
     {
       'questionText': 'First Question',
-      'answers': ['ans1', 'ans2', 'ans3', 'ans4']
+      'answers': [
+        {'text': 'ans1', 'score': 1},
+        {'text': 'ans2', 'score': 0},
+        {'text': 'ans3', 'score': 0},
+        {'text': 'ans4', 'score': 0}
+      ]
     },
     {
       'questionText': 'Second Question',
-      'answers': ['ans11', 'ans22', 'ans33', 'ans44']
+      'answers': [
+        {'text': 'ans11', 'score': 0},
+        {'text': 'ans22', 'score': 1},
+        {'text': 'ans33', 'score': 0},
+        {'text': 'ans44', 'score': 0}
+      ]
     },
     {
       'questionText': 'Third Question',
-      'answers': ['ans111', 'ans222', 'ans333', 'ans444']
+      'answers': [
+        {'text': 'ans111', 'score': 0},
+        {'text': 'ans222', 'score': 0},
+        {'text': 'ans333', 'score': 1},
+        {'text': 'ans444', 'score': 0}
+      ]
     },
   ];
 
-  void _buttonPressed() {
+  void _buttonPressed(int score) {
+    _totalScore += score;
+
     setState(() {
       _questionIndex = (_questionIndex + 1);
     });
@@ -58,7 +76,7 @@ class _MyAppState extends State<MyApp> {
                 questions: _questions,
                 questionIndex: _questionIndex,
               )
-            : Result(),
+            : Result(_totalScore),
       ),
     );
   }
