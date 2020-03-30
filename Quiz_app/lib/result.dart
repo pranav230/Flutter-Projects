@@ -9,8 +9,12 @@ class Result extends StatelessWidget {
   String get resultPhrase {
     String resultText;
 
-    if (resultScore >= 2)
-      resultText = 'Congrats! You did it.';
+    if(resultScore == 4)
+      resultText = 'Congrats! You did it';
+    else if(resultScore == 3)
+      resultText = 'You are getting there';
+    else if (resultScore == 2)
+      resultText = 'There is some hope for you';
     else if (resultScore == 1)
       resultText = 'You atLeast got one of it';
     else

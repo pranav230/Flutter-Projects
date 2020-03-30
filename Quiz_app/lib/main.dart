@@ -1,6 +1,7 @@
 import 'package:first_app/result.dart';
 import 'package:flutter/material.dart';
 import './quiz.dart';
+import './start.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,7 +13,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  var _questionIndex = 0;
+  var _questionIndex = -1;
   int _totalScore = 0;
 
   List<Object> colorTheme = [
@@ -50,16 +51,25 @@ class _MyAppState extends State<MyApp> {
         {'text': 'ans444', 'score': 0}
       ]
     },
+    {
+      'questionText': 'Fourth Question',
+      'answers': [
+        {'text': 'ans1111', 'score': 0},
+        {'text': 'ans2222', 'score': 0},
+        {'text': 'ans3333', 'score': 0},
+        {'text': 'ans4444', 'score': 1}
+      ]
+    },
   ];
 
   void _resetQuiz() {
     setState(() {
-      _questionIndex = 0;
+      _questionIndex = -1;
       _totalScore = 0;
     });
   }
 
-  void _buttonPressed(int score) {
+  void _buttonPressed({int score = 0}) {
     _totalScore += score;
 
     setState(() {
@@ -77,16 +87,18 @@ class _MyAppState extends State<MyApp> {
           title: Text('Quiz App'),
           backgroundColor: Color(0xFFD35400),
         ),
-        body: _questionIndex < _questions.length
-            ? Quiz(
-                buttonPressed: _buttonPressed,
-                questions: _questions,
-                questionIndex: _questionIndex,
-              )
-            : Result(
-                _totalScore,
-                _resetQuiz,
-              ),
+        body: _questionIndex == -1
+            ? Start(_questionIndex,_buttonPressed)
+            : _questionIndex < _questions.length
+                ? Quiz(
+                    buttonPressed: _buttonPressed,
+                    questions: _questions,
+                    questionIndex: _questionIndex,
+                  )
+                : Result(
+                    _totalScore,
+                    _resetQuiz,
+                  ),
       ),
     );
   }
