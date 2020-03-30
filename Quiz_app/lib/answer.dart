@@ -12,10 +12,10 @@ class Answer extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.only(right: 15, left: 15, top: 5, bottom: 5),
       child: RaisedButton(
-        textColor: Color(0xFFF4D03F),
+        textColor: Color(0xFFecf0f1),
         child: Text(answerText),
         onPressed: selectHandler,
-        color: Color(0xFFD35400),
+        color: Color(0xFFF39C12),
       ),
     );
   }
