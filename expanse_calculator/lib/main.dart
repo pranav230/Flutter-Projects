@@ -1,3 +1,5 @@
+import 'package:expanse_calculator/widgets/chart.dart';
+
 import './widgets/newTransaction.dart';
 import 'widgets/transactionList.dart';
 import 'models/transaction.dart';
@@ -70,6 +72,16 @@ class _MyHomePageState extends State<MyHomePage> {
         });
   }
 
+  List<Transaction> get _recentTransactions {
+    return _userTransactions.where((tx) {
+      return tx.date.isAfter(DateTime.now().subtract(
+        Duration(
+          days: 7,
+        ),
+      ));
+    }).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,12 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Container(
-              width: 100,
-              child: Card(
-                child: Text('Test Data'),
-              ),
-            ),
+            Chart(_recentTransactions),
             TransactionList(_userTransactions),
           ],
         ),
