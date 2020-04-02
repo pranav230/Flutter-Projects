@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../models/StringCalculate.dart';
 
 class NewTransaction extends StatefulWidget {
   final Function transactionHandler;
@@ -11,13 +12,12 @@ class NewTransaction extends StatefulWidget {
 
 class _NewTransactionState extends State<NewTransaction> {
   final titleController = TextEditingController();
-
   final amountController = TextEditingController();
 
-  void submitData(){
+  void submitData() {
     String enteredTitle = titleController.text;
-    double enteredAmount = double.parse(amountController.text);
-    if(enteredTitle.isEmpty || enteredAmount<=0){
+    double enteredAmount = calcString(amountController.text);
+    if (enteredTitle.isEmpty || enteredAmount <= 0) {
       return;
     }
 
@@ -45,7 +45,7 @@ class _NewTransactionState extends State<NewTransaction> {
             TextField(
               decoration: InputDecoration(labelText: 'Amount'),
               controller: amountController,
-              keyboardType: TextInputType.number,
+              keyboardType: TextInputType.phone,
               onSubmitted: (_) => submitData(),
             ),
             FlatButton(
