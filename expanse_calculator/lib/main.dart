@@ -1,9 +1,9 @@
-import 'package:expanse_calculator/widgets/chart.dart';
-
-import './widgets/newTransaction.dart';
-import 'widgets/transactionList.dart';
-import 'models/transaction.dart';
 import 'package:flutter/material.dart';
+
+import './widgets/chart.dart';
+import './widgets/newTransaction.dart';
+import './widgets/transactionList.dart';
+import './models/transaction.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter App',
+      title: 'Personal Expanses',
       theme: ThemeData(
         primarySwatch: Colors.green,
         accentColor: Colors.amber,
@@ -86,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter App'),
+        title: Text('Personal Expanses'),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.add),
