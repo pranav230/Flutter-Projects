@@ -36,7 +36,7 @@ class ChartBar extends StatelessWidget {
                   color: Theme.of(context).primaryColor,
                   borderRadius: BorderRadius.circular(10),
                 )),
-              )
+              ),
             ],
           ),
           height: 60,
