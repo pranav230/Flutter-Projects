@@ -37,24 +37,24 @@ class Chart extends StatelessWidget {
   Widget build(BuildContext context) {
     print(groupedTransactionValues);
     return Card(
-      elevation: 3,
-      margin: EdgeInsets.all(10),
-      child: Padding(
-        padding: EdgeInsets.all(10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: groupedTransactionValues.map((data) {
-            return Expanded(
-              child: ChartBar(
-                  data['day'],
-                  data['amount'],
-                  (totalSpending > 0
-                      ? (data['amount'] as double) / totalSpending
-                      : 0)),
-            );
-          }).toList(),
+        elevation: 3,
+        margin: EdgeInsets.all(10),
+        child: Padding(
+          padding: EdgeInsets.all(10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: groupedTransactionValues.map((data) {
+              return Expanded(
+                child: ChartBar(
+                    data['day'],
+                    data['amount'],
+                    (totalSpending > 0
+                        ? (data['amount'] as double) / totalSpending
+                        : 0)),
+              );
+            }).toList(),
+          ),
         ),
-      ),
     );
   }
 }
