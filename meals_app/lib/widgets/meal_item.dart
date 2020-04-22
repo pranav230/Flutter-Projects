@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:meals_app/screens/meal_detail_screen.dart';
 
 import '../models/meal.dart';
 
 class MealItem extends StatelessWidget {
+  final String id;
   final String title;
   final String imageUrl;
   final int duration;
@@ -10,6 +12,7 @@ class MealItem extends StatelessWidget {
   final Affordability affordability;
 
   MealItem({
+    @required this.id,
     @required this.title,
     @required this.affordability,
     @required this.imageUrl,
@@ -17,37 +20,42 @@ class MealItem extends StatelessWidget {
     @required this.complexity,
   });
 
-  String get complexityText{
-    if(complexity == Complexity.Simple)
+  String get complexityText {
+    if (complexity == Complexity.Simple)
       return 'Simple';
-    else if(complexity == Complexity.Hard)
+    else if (complexity == Complexity.Hard)
       return 'Hard';
-    else if(complexity == Complexity.Challenging)
+    else if (complexity == Complexity.Challenging)
       return 'Challenging';
     else
       return 'Unknown';
   }
 
-  String get affordabilityText{
-    switch(affordability){
-      case Affordability.Affordable :
+  String get affordabilityText {
+    switch (affordability) {
+      case Affordability.Affordable:
         return 'Affordable';
         break;
-      case Affordability.Luxurious :
+      case Affordability.Luxurious:
         return 'Luxurious';
         break;
-      case Affordability.Pricey :
+      case Affordability.Pricey:
         return 'Pricey';
         break;
     }
   }
 
-  void selectMeal() {}
+  void selectMeal(BuildContext context) {
+    Navigator.of(context).pushNamed(
+      MealDetailScreen.routeName,
+      arguments: id,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: selectMeal,
+      onTap: () => selectMeal(context),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
