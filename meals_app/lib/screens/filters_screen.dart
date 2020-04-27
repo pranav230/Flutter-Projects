@@ -31,7 +31,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
       String title, bool currentValue, Function updateValue) {
     return SwitchListTile(
       value: currentValue,
-      subtitle: Text('Only include ${title} meals.'),
+      subtitle: Text('Only include $title meals.'),
       onChanged: updateValue,
       title: Text(title),
     );
