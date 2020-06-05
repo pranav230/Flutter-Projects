@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import './product.dart';
 
@@ -50,28 +53,45 @@ class Products with ChangeNotifier {
     return _items.firstWhere((product) => product.id == id);
   }
 
-  void addProduct(Product product) {
-    final newProduct = Product(
-      description: product.description,
-      id: DateTime.now().toString(),
-      price: product.price,
-      title: product.title,
-      imageUrl: product.imageUrl,
-    );
-    _items.add(newProduct);
+  Future<void> addProduct(Product product) {
+    const url = 'https://learning-flutter-c768c.firebaseio.com/products.json';
+    return http
+        .post(
+      url,
+      body: json.encode({
+        'title': product.title,
+        'description': product.description,
+        'imageURL': product.imageUrl,
+        'price': product.price,
+        'isFavorite': product.isFavorite,
+      }),
+    )
+        .then((response) {
+      final newProduct = Product(
+        description: product.description,
+        id: json.decode(response.body)['name'],
+        price: product.price,
+        title: product.title,
+        imageUrl: product.imageUrl,
+      );
+      _items.add(newProduct);
 
-    notifyListeners();
+      notifyListeners();
+    }).catchError((error){
+        print(error);
+        throw error;
+    });
   }
 
-  void upadteProduct(String id, Product newProduct){
+  void upadteProduct(String id, Product newProduct) {
     final _prodIndex = _items.indexWhere((element) => element.id == id);
-    if(_prodIndex >= 0){
+    if (_prodIndex >= 0) {
       _items[_prodIndex] = newProduct;
       notifyListeners();
     }
   }
 
-  void deleteProduct(String id){
+  void deleteProduct(String id) {
     _items.removeWhere((element) => element.id == id);
     notifyListeners();
   }
