@@ -19,14 +19,14 @@ class Product with ChangeNotifier {
     this.isFavorite = false,
   });
 
-  void _setFavValue(bool newValue){
+  void _setFavValue(bool newValue) {
     isFavorite = newValue;
     notifyListeners();
   }
 
-  Future<void> togglesFavoriteStatus() async {
+  Future<void> togglesFavoriteStatus(String token) async {
     final url =
-        'https://learning-flutter-c768c.firebaseio.com/products/$id.json';
+        'https://learning-flutter-c768c.firebaseio.com/products/$id.json?auth=$token';
     final oldStatus = isFavorite;
     isFavorite = !isFavorite;
     notifyListeners();
@@ -35,7 +35,7 @@ class Product with ChangeNotifier {
           body: json.encode({
             'isFavorite': isFavorite,
           }));
-      if(response.statusCode >= 400){
+      if (response.statusCode >= 400) {
         _setFavValue(oldStatus);
       }
     } catch (error) {
