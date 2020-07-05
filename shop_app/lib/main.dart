@@ -27,7 +27,9 @@ class MyApp extends StatelessWidget {
           create: (context) {
             return;
           },
-          update: (context, auth, previousProducts) => Products(auth.token,
+          update: (context, auth, previousProducts) => Products(
+              auth.token,
+              auth.userId,
               previousProducts == null ? [] : previousProducts.items),
         ),
         ChangeNotifierProvider.value(
@@ -37,8 +39,8 @@ class MyApp extends StatelessWidget {
           create: (context) {
             return;
           },
-          update: (context, auth, previousOrders) => Orders(
-              auth.token, previousOrders == null ? [] : previousOrders.orders),
+          update: (context, auth, previousOrders) => Orders(auth.token,
+              auth.userId, previousOrders == null ? [] : previousOrders.orders),
         ),
       ],
       child: Consumer<Auth>(
