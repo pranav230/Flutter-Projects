@@ -10,8 +10,9 @@ class Products with ChangeNotifier {
   List<Product> _items = [];
 
   final String authToken;
+  final String userId;
 
-  Products(this.authToken, this._items);
+  Products(this.authToken, this.userId, this._items);
 
   List<Product> get items {
     return [..._items];
@@ -36,7 +37,7 @@ class Products with ChangeNotifier {
           'description': product.description,
           'imageURL': product.imageUrl,
           'price': product.price,
-          'isFavorite': product.isFavorite,
+          'creatorId': userId,
         }),
       );
 
@@ -93,9 +94,11 @@ class Products with ChangeNotifier {
     existingProduct = null;
   }
 
-  Future<void> fetchAndSetProducts() async {
+  Future<void> fetchAndSetProducts([bool filterByUser = false]) async {
+    final filterString =
+        filterByUser ? 'orderBy="creatorId"&equalTo="$userId"' : '';
     final url =
-        'https://learning-flutter-c768c.firebaseio.com/products.json?auth=$authToken';
+        'https://learning-flutter-c768c.firebaseio.com/products.json?auth=$authToken&$filterString';
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
@@ -103,13 +106,18 @@ class Products with ChangeNotifier {
       if (extractedData == null) {
         return;
       }
+      final favurl =
+          'https://learning-flutter-c768c.firebaseio.com/userFavorites/$userId.json?auth=$authToken';
+      final favoriteResponse = await http.get(favurl);
+      final favoriteData = json.decode(favoriteResponse.body);
       extractedData.forEach((prodId, prodData) {
         loadedProducts.add(Product(
           id: prodId,
           title: prodData['title'],
           description: prodData['description'],
           price: prodData['price'],
-          isFavorite: prodData['isFavorite'],
+          isFavorite:
+              favoriteData == null ? false : favoriteData[prodId] ?? false,
           imageUrl: prodData['imageURL'],
         ));
         _items = loadedProducts;
