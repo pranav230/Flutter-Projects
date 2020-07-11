@@ -6,6 +6,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import '../models/http_exception.dart';
+import '../keys/keys.dart';
 
 class Auth with ChangeNotifier {
   String _token;
@@ -33,7 +34,7 @@ class Auth with ChangeNotifier {
   Future<void> _authenticate(
       String email, String password, String urlSegment) async {
     final url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:$urlSegment?key=AIzaSyBls5dnq4k7wsZALpz6RbB7kCbCXZCRN1g";
+        "https://identitytoolkit.googleapis.com/v1/accounts:$urlSegment?key=${Firebasekey.firebaseKey}";
     try {
       final response = await http.post(
         url,
